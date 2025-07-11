@@ -1,21 +1,19 @@
 name: Run Python Tests
 on: [push]
 
-jobs: 
+jobs:
   test:
-    runs-on: ubuntu-latest 
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Set up python
-        with: 
-          python-version: "3.10"
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"  # Single stable version (3.13 isn't fully supported yet)
 
-      - name: Install dependencies
+      - name: Install pytest
         run: pip install pytest
 
       - name: Run tests
-        run: pytest test_main.py
-        
+        run: pytest -v  # Verbose mode shows which tests pass/fail
